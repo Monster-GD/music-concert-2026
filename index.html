@@ -1,20 +1,3 @@
-<!-- 
-    이 코드는 HTML 파일로 저장하여 사용할 수 있는 좌우 슬라이드 형식의 모바일 초청장입니다.
-    제공해주신 6장의 이미지를 배경으로 사용하여 내용을 대체했습니다.
-
-    사용 방법:
-    1. 이 코드를 전체 복사합니다.
-    2. 컴퓨터의 텍스트 편집기(메모장, Visual Studio Code 등)를 엽니다.
-    3. 복사한 코드를 붙여넣습니다.
-    4. 파일을 '초청장.html'과 같이 '.html' 확장자로 저장합니다.
-    5. 완성된 파일을 스마트폰으로 전송하여 열면 초청장이 보입니다.
-    
-    특징:
-    * 좌우 스와이프로 페이지를 넘길 수 있습니다.
-    * 좌우 화살표 버튼을 클릭하여 페이지를 이동할 수 있습니다.
-    * 페이지 하단에 현재 페이지를 나타내는 점(인디케이터)이 표시됩니다.
-    * 4페이지 '오시는 길'에는 캡처한 지도 이미지가 표시되며, 하단에 네이버/구글/다음 지도 바로가기 버튼이 있습니다.
--->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -22,37 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2025 자유새 찾아가는 음악회에 초대합니다.</title>
     
-    <!-- 카카오톡 미리보기 이미지 지정 (공연 사진) -->
+    <!-- 카카오톡 미리보기 이미지 지정 -->
     <meta property="og:image" content="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%ED%95%B4%EC%96%91%EC%82%AC%EC%B2%9C%EA%B0%80%EC%A1%B1%EC%9D%8C%EC%95%85%ED%9A%8C(2010)%201.jpg">
     <meta property="og:title" content="2025. 자유새 찾아가는 음악회에 초대합니다.">
     <meta property="og:description" content="아름다운 선율과 함께하는 소중한 시간에 당신을 초대합니다.">
 
-    <!-- Tailwind CSS를 사용하기 위한 CDN 링크 -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        html, body {
             margin: 0;
             padding: 0;
             height: 100vh;
-            overflow: hidden; /* 스크롤바 숨기기 */
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
         }
         .container {
             width: 100vw;
             height: 100vh;
-            overflow-x: hidden;
-            scroll-snap-type: x mandatory;
-            display: flex;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory; /* 세로 방향 스냅 설정 */
+            scroll-behavior: smooth;
+            -ms-overflow-style: none; /* IE, Edge 스크롤바 숨김 */
+            scrollbar-width: none; /* Firefox 스크롤바 숨김 */
         }
         .container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari */
+            display: none; /* Chrome, Safari 스크롤바 숨김 */
         }
         .page {
-            flex: 0 0 100vw;
+            width: 100vw;
             height: 100vh;
-            scroll-snap-align: center;
+            scroll-snap-align: start; /* 페이지 단위 정렬 */
+            scroll-snap-stop: always; /* 한 번 스크롤에 한 페이지씩 이동 */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -60,47 +44,36 @@
             position: relative;
             background-size: contain;
             background-repeat: no-repeat;
-            background-position: top; /* 배경 이미지를 상단에 위치 */
-        }
-        .nav-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            background-color: rgba(0,0,0,0.5);
-            color: white;
-            padding: 0.5rem;
-            border-radius: 50%;
-            cursor: pointer;
-            user-select: none;
-        }
-        .nav-button-left {
-            left: 1rem;
-        }
-        .nav-button-right {
-            right: 1rem;
-        }
-        .indicators {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0.5rem;
-            z-index: 10;
-        }
-        .indicator {
-            width: 0.75rem;
-            height: 0.75rem;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            transition: background-color 0.3s;
-        }
-        .indicator.active {
-            background-color: white;
+            background-position: top;
         }
 
-        /* 4페이지 버튼 및 지도 오버레이 스타일 */
+        /* 우측 세로 인디케이터 (화살표 대신 위치 표시) */
+        .indicators {
+            position: fixed;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            z-index: 20;
+        }
+        .indicator {
+            width: 0.55rem;
+            height: 0.55rem;
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .indicator.active {
+            background-color: #ffffff;
+            transform: scale(1.4);
+            box-shadow: 0 0 6px rgba(0,0,0,0.3);
+        }
+
+        /* 4페이지 오버레이 스타일 */
         .page-4-content {
             position: absolute;
             top: 0;
@@ -110,72 +83,87 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-end; /* 내용을 하단으로 정렬 */
-            gap: 0.5rem; /* 버튼과 지도의 간격 조절 */
+            justify-content: flex-end;
+            gap: 0.5rem;
         }
-
         .map-container {
-            width: 60%; /* 이미지 크기 조절 */
+            width: 60%;
             max-width: 400px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             border-radius: 1rem;
             overflow: hidden;
         }
-
         .page-4-buttons {
             width: 80%;
             max-width: 300px;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem; /* 버튼 간격 조절 */
-            margin-bottom: 3.5rem; /* 버튼과 하단 간 여백 */
+            gap: 0.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* 1페이지 하단 스크롤 안내 화살표 애니메이션 */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-8px) translateX(-50%); }
+            60% { transform: translateY(-4px) translateX(-50%); }
+        }
+        .scroll-hint {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            z-index: 10;
+            color: rgba(255, 255, 255, 0.85);
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    
+
     <div id="container" class="container">
         <!-- 1페이지 -->
-        <div id="page-1" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_1.jpg');"></div>
+        <div id="page-1" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_1.jpg');">
+            <!-- 화살표 버튼 대신 첫 화면에만 보여주는 세로 스크롤 유도 아이콘 -->
+            <div class="scroll-hint text-center">
+                <span class="text-xs font-light block mb-1">위로 스크롤하세요</span>
+                <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7-7-7"></path>
+                </svg>
+            </div>
+        </div>
 
         <!-- 2페이지 -->
         <div id="page-2" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_2.jpg');"></div>
-        
+
         <!-- 3페이지 -->
         <div id="page-3" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_3.jpg');"></div>
 
-        <!-- 4페이지: 오시는 길 (지도 및 버튼 오버레이) -->
+        <!-- 4페이지: 오시는 길 -->
         <div id="page-4" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_4.jpg');">
             <div class="page-4-content">
-                <!-- 행사장소 텍스트와 링크 추가 -->
                 <a href="https://www.google.com/maps/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank"
                    class="mb-4 text-white text-lg font-bold hover:underline transition-transform transform hover:scale-105">
-                    • 행사장소 : 사천시 사남면 “초전공원”
+                   • 행사장소 : 사천시 사남면 “초전공원”
                 </a>
                 
-                <!-- 캡처한 지도 이미지 -->
                 <div class="map-container">
                     <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EC%BA%A1%EC%B2%98.PNG" alt="오시는 길 지도" class="w-full h-auto rounded-xl">
                 </div>
                 
                 <div class="page-4-buttons">
-                    <!-- 네이버 지도 버튼 -->
                     <a href="https://map.naver.com/v5/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank" 
-                        class="w-full inline-block bg-green-600 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-xl 
-                        focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 border-2 border-transparent hover:border-white text-center">
+                        class="w-full inline-block bg-green-600 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-xl focus:outline-none text-center">
                         네이버 지도로 오시는 길
                     </a>
-                    <!-- 다음 지도 버튼 추가 -->
                     <a href="https://map.kakao.com/?q=%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank"
-                        class="w-full inline-block bg-yellow-500 text-gray-800 font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-xl
-                        focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 border-2 border-transparent hover:border-white text-center">
+                        class="w-full inline-block bg-yellow-500 text-gray-800 font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-xl focus:outline-none text-center">
                         다음 지도로 오시는 길
                     </a>
-                    <!-- 구글 지도 버튼 -->
                     <a href="https://www.google.com/maps/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank" 
-                        class="w-full inline-block bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-xl 
-                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 border-2 border-transparent hover:border-white text-center">
+                        class="w-full inline-block bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-xl focus:outline-none text-center">
                         구글 지도로 오시는 길
                     </a>
                 </div>
@@ -184,96 +172,51 @@
 
         <!-- 5페이지 -->
         <div id="page-5" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_5.jpg');"></div>
+
+        <!-- 6페이지 (추가) -->
+        <div id="page-6" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_6.jpg');"></div>
     </div>
-    
-    <!-- 네비게이션 버튼 및 인디케이터 -->
-    <button id="prevBtn" class="nav-button nav-button-left" style="display:none;">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-    </button>
-    <button id="nextBtn" class="nav-button nav-button-right">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-    </button>
-    
+
+    <!-- 우측 세로 인디케이터 -->
     <div id="indicators" class="indicators"></div>
 
     <script>
-        const container = document.getElementById('container');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const indicators = document.getElementById('indicators');
         const pages = document.querySelectorAll('.page');
-        let currentPageIndex = 0;
+        const indicatorsContainer = document.getElementById('indicators');
 
-        function updateUI() {
-            // 현재 페이지에 따라 버튼 숨기기/보이기
-            if (currentPageIndex === 0) {
-                prevBtn.style.display = 'none';
-            } else {
-                prevBtn.style.display = 'block';
-            }
-            if (currentPageIndex === pages.length - 1) {
-                nextBtn.style.display = 'none';
-            } else {
-                nextBtn.style.display = 'block';
-            }
-
-            // 인디케이터 업데이트
-            indicators.innerHTML = '';
-            pages.forEach((_, index) => {
-                const indicator = document.createElement('div');
-                indicator.classList.add('indicator');
-                if (index === currentPageIndex) {
-                    indicator.classList.add('active');
-                }
-                indicator.addEventListener('click', () => {
-                    currentPageIndex = index;
-                    pages[currentPageIndex].scrollIntoView({ behavior: 'smooth' });
-                    updateUI();
-                });
-                indicators.appendChild(indicator);
+        // 1. 페이지 수만큼 우측 인디케이터 생성
+        pages.forEach((page, index) => {
+            const indicator = document.createElement('div');
+            indicator.classList.add('indicator');
+            if (index === 0) indicator.classList.add('active');
+            
+            // 인디케이터 클릭 시 해당 페이지로 세로 스크롤
+            indicator.addEventListener('click', () => {
+                page.scrollIntoView({ behavior: 'smooth' });
             });
-        }
-
-        prevBtn.addEventListener('click', () => {
-            if (currentPageIndex > 0) {
-                currentPageIndex--;
-                pages[currentPageIndex].scrollIntoView({ behavior: 'smooth' });
-                updateUI();
-            }
+            indicatorsContainer.appendChild(indicator);
         });
 
-        nextBtn.addEventListener('click', () => {
-            if (currentPageIndex < pages.length - 1) {
-                currentPageIndex++;
-                pages[currentPageIndex].scrollIntoView({ behavior: 'smooth' });
-                updateUI();
-            }
-        });
+        const indicatorList = document.querySelectorAll('.indicator');
 
-        // 스와이프 감지
-        let startX = 0;
-        container.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-        });
-        container.addEventListener('touchend', (e) => {
-            let endX = e.changedTouches[0].clientX;
-            // 50px 이상 스와이프했을 때만 페이지 이동
-            if (startX - endX > 50) {
-                nextBtn.click();
-            } else if (endX - startX > 50) {
-                prevBtn.click();
-            }
-        });
-        
-        // 초기 UI 업데이트
-        window.onload = function() {
-            updateUI();
+        // 2. IntersectionObserver를 활용한 현재 페이지 위치 자동 감지
+        const observerOptions = {
+            root: document.getElementById('container'),
+            threshold: 0.6 // 화면의 60% 이상 노출 시 해당 페이지로 활성화
         };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(pages).indexOf(entry.target);
+                    indicatorList.forEach((ind, i) => {
+                        ind.classList.toggle('active', i === index);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        pages.forEach(page => observer.observe(page));
     </script>
 </body>
 </html>
-
