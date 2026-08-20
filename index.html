@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 자유새 찾아가는 음악회에 초대합니다.</title>
+    <title>2026 자유새 정기 연주회에 초대합니다.</title>
     
-    <!-- 카카오톡 미리보기 이미지 지정 -->
+    <!-- 카카오톡 미리보기 설정 -->
     <meta property="og:image" content="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%ED%95%B4%EC%96%91%EC%82%AC%EC%B2%9C%EA%B0%80%EC%A1%B1%EC%9D%8C%EC%95%85%ED%9A%8C(2010)%201.jpg">
-    <meta property="og:title" content="2025. 자유새 찾아가는 음악회에 초대합니다.">
+    <meta property="og:title" content="2026. 자유새 정기 연주회에 초대합니다.">
     <meta property="og:description" content="아름다운 선율과 함께하는 소중한 시간에 당신을 초대합니다.">
 
     <!-- Tailwind CSS -->
@@ -16,154 +16,104 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            overflow: hidden;
+            width: 100%;
+            background-color: #121212; /* PC 접속 시 좌우 배경색 */
+            scroll-behavior: smooth;
             font-family: 'Inter', sans-serif;
         }
-        .container {
-            width: 100vw;
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory; /* 세로 방향 스냅 설정 */
-            scroll-behavior: smooth;
-            -ms-overflow-style: none; /* IE, Edge 스크롤바 숨김 */
-            scrollbar-width: none; /* Firefox 스크롤바 숨김 */
-        }
-        .container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari 스크롤바 숨김 */
-        }
-        .page {
-            width: 100vw;
-            height: 100vh;
-            scroll-snap-align: start; /* 페이지 단위 정렬 */
-            scroll-snap-stop: always; /* 한 번 스크롤에 한 페이지씩 이동 */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: top;
-        }
-
-        /* 우측 세로 인디케이터 (화살표 대신 위치 표시) */
-        .indicators {
-            position: fixed;
-            right: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            z-index: 20;
-        }
-        .indicator {
-            width: 0.55rem;
-            height: 0.55rem;
-            background-color: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .indicator.active {
+        
+        /* 모바일 초대장 규격 컨테이너 (PC 접속 시에도 모바일 비율 유지) */
+        .invitation-card {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
             background-color: #ffffff;
-            transform: scale(1.4);
-            box-shadow: 0 0 6px rgba(0,0,0,0.3);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            position: relative;
         }
 
-        /* 4페이지 오버레이 스타일 */
+        /* 이미지 사이의 미세 여백 제거 */
+        .invitation-img {
+            width: 100%;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        /* 4페이지 지도 및 버튼 오버레이 레이아웃 */
+        .page-4-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
         .page-4-content {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-end;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            z-index: 10;
         }
+
         .map-container {
-            width: 60%;
-            max-width: 400px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            border-radius: 1rem;
+            width: 75%;
+            max-width: 320px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            border-radius: 0.75rem;
             overflow: hidden;
         }
+
         .page-4-buttons {
-            width: 80%;
+            width: 100%;
             max-width: 300px;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        /* 1페이지 하단 스크롤 안내 화살표 애니메이션 */
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-            40% { transform: translateY(-8px) translateX(-50%); }
-            60% { transform: translateY(-4px) translateX(-50%); }
-        }
-        .scroll-hint {
-            position: absolute;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            z-index: 10;
-            color: rgba(255, 255, 255, 0.85);
-            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
-    <div id="container" class="container">
+    <div class="invitation-card">
         <!-- 1페이지 -->
-        <div id="page-1" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_1.jpg');">
-            <!-- 화살표 버튼 대신 첫 화면에만 보여주는 세로 스크롤 유도 아이콘 -->
-            <div class="scroll-hint text-center">
-                <span class="text-xs font-light block mb-1">위로 스크롤하세요</span>
-                <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7-7-7"></path>
-                </svg>
-            </div>
-        </div>
+        <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_1.jpg" alt="초대장 1페이지" class="invitation-img">
 
         <!-- 2페이지 -->
-        <div id="page-2" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_2.jpg');"></div>
+        <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_2.jpg" alt="초대장 2페이지" class="invitation-img">
 
         <!-- 3페이지 -->
-        <div id="page-3" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_3.jpg');"></div>
+        <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_3.jpg" alt="초대장 3페이지" class="invitation-img">
 
-        <!-- 4페이지: 오시는 길 -->
-        <div id="page-4" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_4.jpg');">
+        <!-- 4페이지: 지도 및 길안내 버튼 오버레이 -->
+        <div class="page-4-wrapper">
+            <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_4.jpg" alt="초대장 4페이지" class="invitation-img">
+            
             <div class="page-4-content">
                 <a href="https://www.google.com/maps/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank"
-                   class="mb-4 text-white text-lg font-bold hover:underline transition-transform transform hover:scale-105">
+                   class="text-white text-base font-bold hover:underline transition-transform transform hover:scale-105 text-center drop-shadow">
                    • 행사장소 : 사천시 사남면 “초전공원”
                 </a>
                 
                 <div class="map-container">
-                    <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EC%BA%A1%EC%B2%98.PNG" alt="오시는 길 지도" class="w-full h-auto rounded-xl">
+                    <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EC%BA%A1%EC%B2%98.PNG" alt="오시는 길 지도" class="w-full h-auto rounded-lg block">
                 </div>
                 
                 <div class="page-4-buttons">
                     <a href="https://map.naver.com/v5/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank" 
-                        class="w-full inline-block bg-green-600 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-xl focus:outline-none text-center">
+                        class="w-full inline-block bg-green-600 text-white font-bold py-2.5 px-4 rounded-full transition-all transform hover:scale-105 shadow-md text-center text-sm">
                         네이버 지도로 오시는 길
                     </a>
                     <a href="https://map.kakao.com/?q=%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank"
-                        class="w-full inline-block bg-yellow-500 text-gray-800 font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-xl focus:outline-none text-center">
+                        class="w-full inline-block bg-yellow-500 text-gray-800 font-bold py-2.5 px-4 rounded-full transition-all transform hover:scale-105 shadow-md text-center text-sm">
                         다음 지도로 오시는 길
                     </a>
                     <a href="https://www.google.com/maps/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank" 
-                        class="w-full inline-block bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 hover:shadow-xl focus:outline-none text-center">
+                        class="w-full inline-block bg-blue-600 text-white font-bold py-2.5 px-4 rounded-full transition-all transform hover:scale-105 shadow-md text-center text-sm">
                         구글 지도로 오시는 길
                     </a>
                 </div>
@@ -171,52 +121,11 @@
         </div>
 
         <!-- 5페이지 -->
-        <div id="page-5" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_5.jpg');"></div>
+        <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_5.jpg" alt="초대장 5페이지" class="invitation-img">
 
-        <!-- 6페이지 (추가) -->
-        <div id="page-6" class="page" style="background-image: url('https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_6.jpg');"></div>
+        <!-- 6페이지 -->
+        <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_6.jpg" alt="초대장 6페이지" class="invitation-img">
     </div>
 
-    <!-- 우측 세로 인디케이터 -->
-    <div id="indicators" class="indicators"></div>
-
-    <script>
-        const pages = document.querySelectorAll('.page');
-        const indicatorsContainer = document.getElementById('indicators');
-
-        // 1. 페이지 수만큼 우측 인디케이터 생성
-        pages.forEach((page, index) => {
-            const indicator = document.createElement('div');
-            indicator.classList.add('indicator');
-            if (index === 0) indicator.classList.add('active');
-            
-            // 인디케이터 클릭 시 해당 페이지로 세로 스크롤
-            indicator.addEventListener('click', () => {
-                page.scrollIntoView({ behavior: 'smooth' });
-            });
-            indicatorsContainer.appendChild(indicator);
-        });
-
-        const indicatorList = document.querySelectorAll('.indicator');
-
-        // 2. IntersectionObserver를 활용한 현재 페이지 위치 자동 감지
-        const observerOptions = {
-            root: document.getElementById('container'),
-            threshold: 0.6 // 화면의 60% 이상 노출 시 해당 페이지로 활성화
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = Array.from(pages).indexOf(entry.target);
-                    indicatorList.forEach((ind, i) => {
-                        ind.classList.toggle('active', i === index);
-                    });
-                }
-            });
-        }, observerOptions);
-
-        pages.forEach(page => observer.observe(page));
-    </script>
 </body>
 </html>
