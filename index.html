@@ -1,131 +1,236 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 자유새 정기 연주회에 초대합니다.</title>
-    
-    <!-- 카카오톡 미리보기 설정 -->
-    <meta property="og:image" content="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%ED%95%B4%EC%96%91%EC%82%AC%EC%B2%9C%EA%B0%80%EC%A1%B1%EC%9D%8C%EC%95%85%ED%9A%8C(2010)%201.jpg">
-    <meta property="og:title" content="2026. 자유새 정기 연주회에 초대합니다.">
-    <meta property="og:description" content="아름다운 선율과 함께하는 소중한 시간에 당신을 초대합니다.">
+  <meta charset="UTF-8">
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            background-color: #121212; /* PC 접속 시 좌우 배경색 */
-            scroll-behavior: smooth;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        /* 모바일 초대장 규격 컨테이너 (PC 접속 시에도 모바일 비율 유지) */
-        .invitation-card {
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            position: relative;
-        }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* 이미지 사이의 미세 여백 제거 */
-        .invitation-img {
-            width: 100%;
-            display: block;
-            margin: 0;
-            padding: 0;
-            border: none;
-        }
+  <title>2026 자유새 정기 연주회에 초대합니다.</title>
 
-        /* 4페이지 지도 및 버튼 오버레이 레이아웃 */
-        .page-4-wrapper {
-            position: relative;
-            width: 100%;
-        }
+  <!-- 카카오톡 / SNS 공유 미리보기 -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="2026 자유새 정기 연주회에 초대합니다.">
+  <meta property="og:description" content="음악으로 잇는 마음, 함께하는 울림">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Monster-GD/music-concert-2026/main/kakao.jpg">
+  <meta property="og:url" content="https://monster-gd.github.io/music-concert-2026/">
 
-        .page-4-content {
-            position: absolute;
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 85%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.6rem;
-            z-index: 10;
-        }
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        .map-container {
-            width: 75%;
-            max-width: 320px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            border-radius: 0.75rem;
-            overflow: hidden;
-        }
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      background-color: #121212;
+      scroll-behavior: smooth;
+      font-family: 'Inter', sans-serif;
+    }
 
-        .page-4-buttons {
-            width: 100%;
-            max-width: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-    </style>
+    .invitation-card {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      background-color: #fff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .invitation-img {
+      width: 100%;
+      display: block;
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+
+    /* 4면 */
+    .page-4-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .page-4-content {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 85%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      z-index: 10;
+    }
+
+    .location-title {
+      color: #222;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .map-container {
+      width: 75%;
+      max-width: 320px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+
+    .map-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .page-4-buttons {
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .map-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.65rem 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-sizing: border-box;
+      transition: opacity 0.2s;
+    }
+
+    .map-button:hover {
+      opacity: 0.85;
+    }
+
+    .naver-button {
+      background: #03c75a;
+      color: white;
+    }
+
+    .kakao-button {
+      background: #fee500;
+      color: #191919;
+    }
+
+    .google-button {
+      background: #ffffff;
+      color: #333333;
+      border: 1px solid #ddd;
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="invitation-card">
-        <!-- 1페이지 -->
-        <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_1.jpg" alt="초대장 1페이지" class="invitation-img">
+  <div class="invitation-card">
 
-        <!-- 2페이지 -->
-        <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_2.jpg" alt="초대장 2페이지" class="invitation-img">
+    <!-- 1면 -->
+    <img
+      src="01.jpg"
+      alt="2026 자유새 정기 연주회 초대장 1면"
+      class="invitation-img"
+    >
 
-        <!-- 3페이지 -->
-        <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_3.jpg" alt="초대장 3페이지" class="invitation-img">
+    <!-- 2면 -->
+    <img
+      src="02.jpg"
+      alt="2026 자유새 정기 연주회 초대장 2면"
+      class="invitation-img"
+    >
 
-        <!-- 4페이지: 지도 및 길안내 버튼 오버레이 -->
-        <div class="page-4-wrapper">
-            <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_4.jpg" alt="초대장 4페이지" class="invitation-img">
-            
-            <div class="page-4-content">
-                <a href="https://www.google.com/maps/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank"
-                   class="text-white text-base font-bold hover:underline transition-transform transform hover:scale-105 text-center drop-shadow">
-                   • 행사장소 : 사천시 사남면 “초전공원”
-                </a>
-                
-                <div class="map-container">
-                    <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EC%BA%A1%EC%B2%98.PNG" alt="오시는 길 지도" class="w-full h-auto rounded-lg block">
-                </div>
-                
-                <div class="page-4-buttons">
-                    <a href="https://map.naver.com/v5/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank" 
-                        class="w-full inline-block bg-green-600 text-white font-bold py-2.5 px-4 rounded-full transition-all transform hover:scale-105 shadow-md text-center text-sm">
-                        네이버 지도로 오시는 길
-                    </a>
-                    <a href="https://map.kakao.com/?q=%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank"
-                        class="w-full inline-block bg-yellow-500 text-gray-800 font-bold py-2.5 px-4 rounded-full transition-all transform hover:scale-105 shadow-md text-center text-sm">
-                        다음 지도로 오시는 길
-                    </a>
-                    <a href="https://www.google.com/maps/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90" target="_blank" 
-                        class="w-full inline-block bg-blue-600 text-white font-bold py-2.5 px-4 rounded-full transition-all transform hover:scale-105 shadow-md text-center text-sm">
-                        구글 지도로 오시는 길
-                    </a>
-                </div>
-            </div>
+    <!-- 3면 -->
+    <img
+      src="03.jpg"
+      alt="2026 자유새 정기 연주회 초대장 3면"
+      class="invitation-img"
+    >
+
+    <!-- 4면 -->
+    <div class="page-4-wrapper">
+
+      <!-- 4면 배경 -->
+      <img
+        src="04.jpg"
+        alt="오시는 길"
+        class="invitation-img"
+      >
+
+      <!-- 4면 위에 표시되는 내용 -->
+      <div class="page-4-content">
+
+        <div class="location-title">
+          사천시 사남면 「초전공원」
         </div>
 
-        <!-- 5페이지 -->
-        <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_5.jpg" alt="초대장 5페이지" class="invitation-img">
+        <!-- 별도의 지도 이미지 -->
+        <div class="map-container">
+          <img
+            src="map.PNG"
+            alt="오시는 길 지도"
+          >
+        </div>
 
-        <!-- 6페이지 -->
-        <img src="https://raw.githubusercontent.com/Monster-GD/music-concert-sanam/main/%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%B4%88%EB%8C%80_6.jpg" alt="초대장 6페이지" class="invitation-img">
+        <!-- 지도 바로가기 -->
+        <div class="page-4-buttons">
+
+          <a
+            href="https://map.naver.com/v5/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-button naver-button"
+          >
+            네이버 지도에서 보기
+          </a>
+
+          <a
+            href="https://map.kakao.com/?q=%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-button kakao-button"
+          >
+            카카오맵에서 보기
+          </a>
+
+          <a
+            href="https://www.google.com/maps/search/%EC%82%AC%EC%B2%9C%EC%8B%9C%20%EC%82%AC%EB%82%A8%EB%A9%B4%20%EC%B4%88%EC%A0%84%EA%B3%B5%EC%9B%90"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-button google-button"
+          >
+            Google 지도에서 보기
+          </a>
+
+        </div>
+      </div>
     </div>
+
+    <!-- 5면 -->
+    <img
+      src="05.jpg"
+      alt="2026 자유새 정기 연주회 초대장 5면"
+      class="invitation-img"
+    >
+
+    <!-- 6면 -->
+    <img
+      src="06.jpg"
+      alt="2026 자유새 정기 연주회 초대장 6면"
+      class="invitation-img"
+    >
+
+  </div>
 
 </body>
 </html>
