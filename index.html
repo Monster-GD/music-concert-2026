@@ -58,63 +58,113 @@
       아래쪽 '대중교통' 문구 사이의 빈 공간에
       지도와 버튼을 배치합니다.
     */
-    .page-4-content {
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 82%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.45rem;
-      z-index: 10;
-    }
+/* ========================================
+   4면
+   ======================================== */
 
-    /* 지도 */
-    .map-container {
-      width: 80%;
-      max-width: 340px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
-      border-radius: 0.6rem;
-      overflow: hidden;
-      background: #fff;
-    }
+.page-4-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
 
-    .map-container img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+/* 지도 + 버튼 전체 위치 */
+.page-4-content {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    /* 지도 버튼 영역 */
-    .page-4-buttons {
-      width: 86%;
-      max-width: 320px;
-      display: flex;
-      flex-direction: column;
-      gap: 0.32rem;
-    }
+  /* 지도와 네이버 버튼 사이의 기본 간격 */
+  gap: 0.8rem;
 
-    .map-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      min-height: 30px;
-      padding: 0.42rem 0.8rem;
-      border-radius: 999px;
-      text-decoration: none;
-      font-size: 0.73rem;
-      font-weight: 600;
-      line-height: 1.2;
-      box-sizing: border-box;
-      transition: opacity 0.2s;
-    }
+  z-index: 10;
+}
 
-    .map-button:hover {
-      opacity: 0.85;
-    }
+/* 지도 */
+.map-container {
+  width: 90%;
+  max-width: 360px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  border-radius: 0.7rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.map-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 지도 버튼 영역 */
+.page-4-buttons {
+  width: 90%;
+  max-width: 340px;
+
+  display: flex;
+  flex-direction: column;
+
+  /* 네이버 / 카카오 / 구글 사이 간격 */
+  gap: 0.5rem;
+}
+
+/* 버튼 */
+.map-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 32px;
+
+  padding: 0.48rem 0.8rem;
+
+  border-radius: 999px;
+  text-decoration: none;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+
+  box-sizing: border-box;
+
+  /* 마우스 효과 */
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
+}
+
+/* 마우스를 올렸을 때 살짝 튀어나오는 효과 */
+.map-button:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
+  opacity: 0.95;
+}
+
+/* 네이버 */
+.naver-button {
+  background: #03c75a;
+  color: white;
+}
+
+/* 카카오 */
+.kakao-button {
+  background: #fee500;
+  color: #191919;
+}
+
+/* 구글 */
+.google-button {
+  background: #ffffff;
+  color: #333333;
+  border: 1px solid #ddd;
+}
 
     .naver-button {
       background: #03c75a;
